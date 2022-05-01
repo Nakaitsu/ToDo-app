@@ -1,0 +1,129 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>My ToDo Project</title>
+  <link rel="stylesheet" href="../css/main.css">
+</head>
+<body>
+  <header>
+    <div class="container header-config">
+      <h1>My Todo Project</h1> 
+      <nav>
+        <ul>
+          <li>
+            <a href="#" class="nav-link">Home</a>
+          </li>
+          <li>
+            <a href="#" class="nav-link">Sobre</a>
+          </li>
+          <li>
+            <a href="#" class="nav-link">Cadastrar</a>
+          </li>
+        </ul>
+      </nav>
+    </div>
+  </header>
+  
+  <main>
+    <div class="container conteudo">      
+      <h3>Adicionar nova tarefa</h3>
+
+      <div class="painel-criacao arredondar">
+        <form method="POST" class="arrendondar">
+          <fieldset>
+            <label for="">Descrição:</label>
+            <input type="text" placeholder="Hoje eu preciso compartilhar esse site de organizar tarefas">
+          </fieldset>
+          <fieldset>
+            <label for="">Tags:</label>
+            <input type="text" placeholder="Importante, Legal">
+          </fieldset>
+        </form>
+
+        <a class="btn btn-azul arredondar">Adicionar</a>
+      </div>
+
+      <div class="painel-controles">
+        <div class="controles-buscar arredondar">
+          <input type="text" placeholder="Buscar uma tarefa">
+          <a class="btn btn-azul arredondar">Buscar</a>
+        </div>
+
+        <div class="controles-filtro-dropdown">
+          <div class="btn-dropdown btn btn-azul arredondar">
+            <a>Filtrar</a>
+            <i class="triangle"></i>
+          </div>
+
+          <div class="filtro-menu">
+            <ul>
+              <li>
+                <a href="#">Mais recentes</a>
+              </li>
+              <li>
+                <a href="#">Mais antigos</a>
+              </li>
+              <li>
+                <a href="#">Por Tags</a>
+              </li>
+            </ul>
+          </div>
+        </div>
+      </div>
+
+      <div class="painel-tarefas">
+        <div> <!-- Apenas de modelo -->
+          <p>Descrição da tarefa</p>
+          <div class="tags">
+            <p>tag 1</p>
+            <p>tag 2</p>
+          </div>
+          <p>16 / 04/ 2022</p>
+          <a>X</a>
+        </div>
+      </div>
+
+    </div>
+  </main>
+
+  <footer>
+    <div class="container footer-config">
+      <section class="contato">
+        <div>
+          <h4>My ToDo Project</h4>
+          <p>Aqui você se organiza melhor</p>
+        </div>
+        <div>
+          <p>emailcontanto@exmaple.com</p>
+          <p>(91) 9 1234-5678</p>
+        </div>
+      </section>
+      <section class="sitemap">
+        <h4>Sitemap</h4>
+        <div class="sitemap-links">
+          <div>
+            <a class="nav-link" href="#">Home</a>
+          </div>
+          <div>
+            <a class="nav-link" href="#">Sobre</a>
+          </div>
+          <div>
+            <a class="nav-link" href="#">Cadastrar</a>
+          </div>
+          <div>
+            <a class="nav-link" href="#">Tarefas</a>
+          </div>
+          <div>
+            <a class="nav-link" href="#">Privacidade</a>
+          </div>
+          <div>
+            <a class="nav-link" href="#">Contato</a>
+          </div>
+        </div>
+      </section>
+    </div>
+  </footer>
+</body>
+</html>

@@ -1,0 +1,102 @@
+.conteudo {
+  display: grid;
+  grid-template-columns: 0.7fr 1fr;
+  grid-template-rows: 0.2fr 1fr;
+  grid-column-gap: 7vw;
+  grid-row-gap: 2em;
+  align-items: center;
+  max-height: 75vh;
+  margin-top: 20px !important;
+  margin-bottom: 20px !important;
+}
+.conteudo h3 {
+  text-align: center;
+  color: #333;
+  grid-row: 1/2;
+}
+.painel-controles,
+.painel-tarefas {
+  grid-column: 2/3;
+}
+.painel-controles {
+  display: flex;
+  align-items: center;
+  justify-content: space-around;
+}
+.painel-tarefas {
+  grid-row: 2/3;
+  height: 100%;
+}
+.painel-criacao {
+  grid-row: 2/3;
+  grid-column: 1/2;
+  display: flex;
+  flex-direction: column;
+  justify-content: space-between;
+  height: 25em;
+  width: 95%;
+}
+.painel-criacao form {
+  background: linear-gradient(to bottom, #1B4C9A 1%, #164185 30%, #07295E 76%);
+  height: 80%;
+}
+.controles-buscar {
+  display: flex;
+  width: 63%;
+  align-items: center;
+  padding: 0.3em 0.75em;
+  border: 1.6px solid #acacac;
+  grid-row: 1/2;
+}
+.controles-buscar input {
+  flex-grow: 1;
+  font-size: 1.2rem;
+  padding: 0 0.3em;
+  border: none;
+  color: #333;
+}
+.controles-buscar input:focus {
+  outline: none;
+}
+.controles-buscar input::placeholder {
+  font-style: italic;
+  word-spacing: 0.1em;
+  color: #a6a6a6;
+}
+.controles-filtro-dropdown {
+  position: relative;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  grid-row: 1/2;
+  min-width: 20%;
+}
+.controles-filtro-dropdown > a {
+  position: relative;
+}
+.controles-filtro-dropdown .filtro-menu {
+  display: none;
+  position: absolute;
+  padding: 1em;
+  top: 105%;
+  min-width: 120px;
+  color: #333;
+  box-shadow: 0 0 3px #acacac;
+}
+.controles-filtro-dropdown .filtro-menu a:hover {
+  background-color: #acacac;
+  color: white;
+}
+.controles-filtro-dropdown:hover .filtro-menu {
+  display: block;
+}
+.btn-dropdown {
+  display: flex !important;
+  justify-content: space-between;
+  min-width: 100%;
+}
+.filtro-menu a {
+  display: block;
+  padding: 0.5em;
+  color: #333;
+}
