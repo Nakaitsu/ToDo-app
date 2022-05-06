@@ -1,7 +1,7 @@
 //variaveis
 @cinza-escuro: #333;
 @cinza-elegante: #acacac;
-
+//
 @base-texto: 18px;
 @base-titulo: 22px;
 @base-1: @base-texto * 0.8em;
@@ -14,11 +14,11 @@
 
   cursor: pointer;
   font-size: 1.35rem;
-  font-weight: bold;
+  font-weight: bolder;
 
   .dinamico(@color) {
     background-color: @color;
-    transition: background-color 0.75ms ease-in;
+    transition: background-color 0.75ms ease-out;
 
     &:hover {
       background-color: darken(@color, 15%);

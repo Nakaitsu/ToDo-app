@@ -6,7 +6,7 @@
   grid-template-rows: 0.2fr 1fr;
   grid-column-gap: 7vw;
   grid-row-gap: 2em;
-  align-items: center;
+  justify-content: center;
 
   max-height: 75vh;
   margin-top: 20px !important;
@@ -14,6 +14,7 @@
 
   h3 {
     text-align: center;
+    align-self: center;
     color: @cinza-escuro;
     grid-row: 1/2;
   }
@@ -36,32 +37,53 @@
 }
 
 .painel-criacao {
-  grid-row: 2/3;
-  grid-column: 1/2;
-
   display: flex;
   flex-direction: column;
-  justify-content: space-between;
-  height: 25em;
+  justify-content: space-around;
+  align-items: center;
   width: 95%;
   
+  grid-row: 2/3;
+  grid-column: 1/2;
+  
   form {
-    background: linear-gradient(to bottom, #1B4C9A 1%, #164185 30% , #07295E 76% );
+    padding: 1.5em;
     height: 80%;
+    width: 100%;
+
+    background: linear-gradient(to bottom, #1B4C9A 1%, #164185 30% , #07295E 76% );
+  }
+
+  label {
+    display: inline-block;
+    font-size: 1.45rem;
+    color: white;
+    font-weight: bold;
+  }
+
+  input {
+    display: block;
+    min-width: 100%;
+    padding: 1em;
+
+    background-color: #3961A0;
+    border: none;
+    color: white;
   }
 }
 
 .controles-buscar {
   display: flex;
-  width: 63%;
   align-items: center;
+  width: 63%;
   padding: .3em .75em;
-  .borda-smooth;
+  
   grid-row: 1/2;
 
+  .borda-smooth;
+
   input {
-    flex-grow: 1;
-    font-size: 1.2rem;
+    flex-grow: 2;
     padding: 0 .3em;
     border: none;
     color: @cinza-escuro;
@@ -71,9 +93,7 @@
     }
 
     &::placeholder {
-      font-style: italic;
       word-spacing: 0.1em;
-      color: lighten(@cinza-escuro, 45%);
     }
   }
 }
@@ -83,12 +103,12 @@
   display: flex;
   align-items: center;
   justify-content: center;
-  grid-row: 1/2;
   min-width: 20%;
+  
+  grid-row: 1/2;
 
   > a{
     position: relative;
-    // display: block;
   }
   
   .filtro-menu {
