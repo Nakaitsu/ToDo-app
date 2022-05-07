@@ -1,14 +1,17 @@
-//variaveis
+// variaveis
 @cinza-escuro: #333;
 @cinza-elegante: #acacac;
-//
-@base-texto: 18px;
-@base-titulo: 22px;
-@base-1: @base-texto * 0.8em;
-@base-2: @base-texto * 1.05em;
-@base-3: @base-texto * 1.15em;
 
-//Functions
+@verde-primario: #0D937D;
+@verde-vivo: #7BDC62;
+@verde: #2c9a88;
+@verde-escuro: #067361;
+
+@azul-primario: #3961A0;
+@azul: #1B4C9A;
+@azul-escuro: #07295E;
+
+// funcões
 .button(){
   display: inline-block;
 
@@ -30,12 +33,25 @@
   }
 }
 
-.padding-padrao(){ padding: 1.10em 0; }
-.padding-suave(){ padding: 0.4em 0.85em; }
-
 .borda-simples() {
-  border: 0.6px solid @cinza-elegante;
+  border: .8px solid @cinza-elegante;
 }
 .borda-smooth() {
   border: 1.6px solid @cinza-elegante;
+}
+
+.form-controller() {
+  display: block;
+  min-width: 100%;
+  padding: 1em;
+
+  border: none;
+  
+  &:focus {
+    outline: none;
+  }
+}
+
+.transition-color() {
+  trasition: color .75ms ease-out;
 }

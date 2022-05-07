@@ -9,17 +9,17 @@
 <body>
   <header>
     <div class="container header-config">
-      <h1>My Todo Project</h1> 
+      <h1>My ToDo Project</h1> 
       <nav>
         <ul>
           <li>
-            <a href="#" class="nav-link">Home</a>
+            <a href="#" class="nav-link arredondar">Home</a>
           </li>
           <li>
-            <a href="#" class="nav-link">Sobre</a>
+            <a href="#" class="nav-link arredondar">Sobre</a>
           </li>
           <li>
-            <a href="#" class="nav-link">Cadastrar</a>
+            <a href="#" class="nav-link arredondar">Cadastrar</a>
           </li>
         </ul>
       </nav>
@@ -32,11 +32,12 @@
 
       <div class="painel-criacao arredondar">
         <form method="POST" class="arredondar">
-          <fieldset class="mb-1">
+          <fieldset class="mb-2">
             <label class="mb" for="descricao">Descrição:</label>
-            <input class="arredondar" name="descricao" type="text" placeholder="Hoje eu preciso compartilhar esse site de organizar tarefas">
+            <!-- <input class="arredondar" name="descricao" type="text" placeholder="Hoje eu preciso compartilhar esse site de organizar tarefas"> -->
+            <textarea class="arredondar" name="descricao" id="descricao" cols="auto" rows="7" placeholder="Hoje eu preciso compartilhar esse site de oragnizar tarefas"></textarea>
           </fieldset>
-          <fieldset class="mb-1">
+          <fieldset class="mb-2">
             <label class="mb" for="tags">Tags:</label>
             <input class="arredondar" name="tags" type="text" placeholder="Importante, Legal">
           </fieldset>
@@ -73,16 +74,64 @@
         </div>
       </div>
 
-      <div class="painel-tarefas">
-        <div> <!-- Apenas de modelo -->
-          <p>Descrição da tarefa</p>
+      <div class="painel-tarefas arredondar">
+        <div class="tarefa arredondar"> <!-- Apenas de modelo -->
+          <p class="descricao">Descrição da tarefa Lorem, ipsum dolor sit amet consectetur adipisicing elit. Voluptatibus, ut omnis sapiente iure perferendis molestias doloribus magni blanditiis? Fugit est dignissimos voluptas fuga, sunt accusamus ullam aperiam harum quia nulla.</p>
           <div class="tags">
-            <p>tag 1</p>
-            <p>tag 2</p>
+            <p class="arredondar-p">Importante</p>
+            <p class="arredondar-p">Legal</p>
+            <p class="arredondar-p">Tag</p>
+            <p class="arredondar-p">Uma Tag muito grande</p>
           </div>
-          <p>16 / 04/ 2022</p>
-          <a>X</a>
+          <p class="data">16 / 04 / 2022</p>
+          <a class="deletar arredondar-p">X</a>
         </div>
+
+        <div class="tarefa arredondar"> <!-- Apenas de modelo -->
+          <p class="descricao">Só o básico</p>
+          <div class="tags">
+            <p class="arredondar-p">Importante</p>
+            <p class="arredondar-p">ABC</p>
+            <p class="arredondar-p">Tag</p>
+            <p class="arredondar-p">Nova tarefa</p>
+          </div>
+          <p class="data">16 / 04 / 2022</p>
+          <a class="deletar arredondar-p">X</a>
+        </div>
+
+        <div class="tarefa arredondar"> <!-- Apenas de modelo -->
+          <p class="descricao">Lorem ipsum dolor sit amet consectetur adipisicing elit. Quaerat commodi reiciendis dignissimos soluta quam velit aspernatur officiis quae dicta consequuntur corporis at ipsum natus architecto atque, minima hic saepe voluptatum.
+          Incidunt aspernatur nostrum alias odit repudiandae dolores velit repellat explicabo quos voluptates, esse, accusamus dicta. Hic, quas iure voluptate numquam aperiam, accusantium commodi error unde illo modi perspiciatis eligendi delectus.
+          Ex velit nobis harum nostrum molestias doloribus, accusamus quisquam ipsa eum! Nostrum, ratione! Unde voluptas explicabo dicta exercitationem ab? Sequi doloremque ex qui natus rem quod. Ex beatae culpa ea.</p>
+          <div class="tags">
+            <p class="arredondar-p">Lorem ipsum</p>
+          </div>
+          <p class="data">16 / 04 / 2022</p>
+          <a class="deletar arredondar-p">X</a>
+        </div>
+
+        <div class="tarefa arredondar"> <!-- Apenas de modelo -->
+          <p class="descricao">Testando o meu scroll bar</p>
+          <div class="tags">
+            <p class="arredondar-p">Importante</p>
+            <p class="arredondar-p">ABC</p>
+            <p class="arredondar-p">Tag</p>
+            <p class="arredondar-p">Nova tarefa</p>
+          </div>
+          <p class="data">16 / 04 / 2022</p>
+          <a class="deletar arredondar-p">X</a>
+        </div>
+
+        <div class="tarefa arredondar"> <!-- Apenas de modelo -->
+          <p class="descricao">Só o básico meus amigos</p>
+          <div class="tags">
+            <p class="arredondar-p">Importante</p>
+            <p class="arredondar-p">Nova tarefa</p>
+          </div>
+          <p class="data">16 / 04 / 2022</p>
+          <a class="deletar arredondar-p">X</a>
+        </div>
+
       </div>
 
     </div>
