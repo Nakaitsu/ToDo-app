@@ -1,4 +1,32 @@
 @import url(./todo.css);
+@font-face {
+  font-family: 'Fira Sans';
+  font-style: normal;
+  font-weight: 400;
+  font-display: swap;
+  src: url(https://fonts.gstatic.com/s/firasans/v16/va9E4kDNxMZdWfMOD5VfkA.ttf) format('truetype');
+}
+@font-face {
+  font-family: 'Fira Sans';
+  font-style: normal;
+  font-weight: 700;
+  font-display: swap;
+  src: url(https://fonts.gstatic.com/s/firasans/v16/va9B4kDNxMZdWfMOD5VnLK3uQQ.ttf) format('truetype');
+}
+@font-face {
+  font-family: 'Ubuntu';
+  font-style: normal;
+  font-weight: 400;
+  font-display: swap;
+  src: url(https://fonts.gstatic.com/s/ubuntu/v20/4iCs6KVjbNBYlgo6eA.ttf) format('truetype');
+}
+@font-face {
+  font-family: 'Ubuntu';
+  font-style: normal;
+  font-weight: 700;
+  font-display: swap;
+  src: url(https://fonts.gstatic.com/s/ubuntu/v20/4iCv6KVjbNBYlgoCxCvTtw.ttf) format('truetype');
+}
 * {
   margin: 0;
   padding: 0;
@@ -8,6 +36,9 @@
 *::placeholder {
   font-style: italic;
   color: #a6a6a6;
+}
+body {
+  font-family: 'Fira Sans', sans-serif;
 }
 fieldset {
   border: none;
@@ -37,6 +68,14 @@ h5 {
 h6 {
   font-size: 1.5rem;
 }
+h1,
+h2,
+h3,
+h4,
+h5,
+h6 {
+  font-family: 'Ubuntu', sans-serif;
+}
 .mb {
   margin-bottom: 0.5em;
 }
@@ -57,6 +96,9 @@ h6 {
 }
 .arredondar-p {
   border-radius: 3.5px;
+}
+.italic {
+  font-style: italic;
 }
 .container {
   width: 90%;
