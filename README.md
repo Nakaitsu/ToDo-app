@@ -1,7 +1,9 @@
 # ToDo-app
 
 Um app para registrar tarefas
+
 O objetivo é praticar:
+
 * ***javascript*** 
 * ***nodeJS*** 
 * ***mongoDB***
@@ -11,6 +13,8 @@ O objetivo é praticar:
 * *HTML 5*
 * *CSS 3*
 * *Less*
+* *nodeJs*
+* *mongoDB*
 
 ###### Imagem do planejamento do projeto feito pelo Draw.io
 
