@@ -8,17 +8,35 @@ let app = express(),
 
 app.use(express.static(__dirname + '/client'))
 app.use(express.json())
+mongoose.connect('mongodb://localhost/todoapp')
 
 const todoSchema = mongoose.Schema({
   description: String,
-  tags: [String]
+  tags: [String],
+  modified: Date
 })
 
 const todos = mongoose.model('ToDos', todoSchema)
 
-app.post('/todos', (req, res) => {
-  let test = req.body
-  console.log(test)
+app.post('/todos', async (req, res) => {
+  console.log('objeto recebido')
+  console.log(req.body)
+
+  let description = req.body.description,
+      tags = req.body.tags.split(',')
+
+  let task = todos({
+    description: description,
+    tags: tags
+  })
+
+  await task.save((err, result) => {
+    if(err)
+      res.send(err)
+    else
+      res.json({message: 'tarefa arquivada'})
+  })
+
 })
 
 app.get('/todos', (req, res) => {
@@ -26,7 +44,7 @@ app.get('/todos', (req, res) => {
     if(!err)
       res.json(result)
     else
-      res.send(err)
+      res.json(err)
   })
 })
 
