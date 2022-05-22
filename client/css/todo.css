@@ -60,6 +60,7 @@
   align-items: center;
   justify-content: flex-start;
   column-gap: 0.5em;
+  row-gap: 0.25em;
   flex-flow: row wrap;
   max-width: 100%;
   color: #333;
@@ -76,15 +77,41 @@
   font-style: italic;
   word-spacing: 0.55em;
 }
-.tarefa .deletar {
-  align-self: start;
-  justify-self: end;
+.tarefa .tarefa-opcoes {
   grid-column: 2/3;
   grid-row: 1/2;
+  display: flex;
+  justify-content: flex-end;
+  align-items: flex-start;
+  column-gap: 0.25em;
+}
+.tarefa .tarefa-opcoes .opcoes {
   font-size: 1.3rem;
-  padding: 0.5em;
-  background-color: #067361;
-  color: #acacac;
+  padding: 0.25em 0.5em;
+  color: white;
+  cursor: pointer;
+  border: 1.3px solid transparent;
+  transition: border 0.7ms ease-out, background-color 0.9ms ease-out, color 0.7ms ease-out;
+}
+.tarefa .deletar {
+  background-color: #b63636;
+  border-top-left-radius: 7.5px;
+  border-bottom-left-radius: 7.5px;
+}
+.tarefa .deletar:hover {
+  border-color: #b63636;
+  background-color: white;
+  color: #b63636;
+}
+.tarefa .editar {
+  background-color: #3961A0;
+  border-top-right-radius: 7.5px;
+  border-bottom-right-radius: 7.5px;
+}
+.tarefa .editar:hover {
+  border-color: #3961A0;
+  background-color: white;
+  color: #3961A0;
 }
 .painel-criacao {
   display: flex;

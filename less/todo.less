@@ -45,7 +45,6 @@
 
   .tarefa {
     display: grid;
-    // grid-template-areas: 'descricao' 'detalhes';
     grid-template-columns: 1fr .3fr;
     grid-row-gap: 1.2em;
     padding: 1.3em;
@@ -64,7 +63,6 @@
 .tarefa {
   .descricao {
     align-self: start;
-    // grid-area: descricao;
     grid-column: 1/2;
     
     max-width: 100%;
@@ -74,13 +72,13 @@
   .tags {
     justify-self: start;
     align-self: end;
-    // grid-area: descricao;
     grid-column: 1/2;
 
     display: flex;
     align-items: center;
     justify-content: flex-start;
     column-gap: 0.5em;
+    row-gap: 0.25em;
     flex-flow: row wrap;
     max-width: 100%;
 
@@ -95,7 +93,6 @@
   .data {
     align-self: end;
     justify-self: end;
-    // grid-area: detalhes;
     grid-column: 2/3;
 
     font-size: 1rem;
@@ -103,17 +100,47 @@
     word-spacing: .55em;
   }
 
-  .deletar {
-    align-self: start;
-    justify-self: end;
-    // grid-area: detalhes;
+  .tarefa-opcoes {
     grid-column: 2/3;
     grid-row: 1/2;
 
-    font-size: 1.3rem;
-    padding: .5em;
-    background-color: @verde-escuro;
-    color: @cinza-elegante;
+    display: flex;
+    justify-content: flex-end;
+    align-items: flex-start;
+    column-gap: .25em;
+
+    .opcoes {
+      font-size: 1.3rem;
+      padding: .25em .5em;
+      color: white;
+      cursor: pointer;
+      border: 1.3px solid transparent;
+      transition: border .7ms ease-out, background-color .9ms ease-out, color .7ms ease-out;
+    }
+  }
+
+  .deletar {
+    background-color: #b63636;
+    border-top-left-radius: 7.5px;
+    border-bottom-left-radius: 7.5px;
+
+    &:hover {
+      border-color: #b63636;
+      background-color: white;
+      color: #b63636;
+    }
+  }
+  
+  .editar {
+    background-color: @azul-primario;
+    border-top-right-radius: 7.5px;
+    border-bottom-right-radius: 7.5px;
+
+    &:hover {
+      border-color: @azul-primario;
+      background-color: white;
+      color: @azul-primario;
+    }
   }
 }
 
