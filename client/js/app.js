@@ -2,27 +2,70 @@ function main() {
   'use strict'
 
   const form = document.querySelector('[name=ToDoForms]'),
-    url = '/todos'
-  let search = {
-    input: document.querySelector('[data-search-input'),
-    button: document.querySelector('[data-search-btn]')
-  }
+        filters = document.querySelectorAll('[data-filtro]')
+
+  let url = '/todos',
+      search = {
+        input: document.querySelector('[data-search-input]'),
+        button: document.querySelector('[data-search-btn]')
+      },
+      filter = {
+        newest: (context) => {
+          let newest = []
+  
+          for(let i = context.length - 1; i >= 0; i--) {
+            newest.push(context[i])
+          }
+          return newest
+        },
+        oldest: (context) => {
+          let oldest = []
+  
+          oldest = context.filter(elem => elem)
+          return oldest
+        },
+        tag: (context) => {
+          //fazer ainda
+        }
+      }
+
+  filters.forEach(f => {
+    if(f.dataset.filtro === 'recente') {
+      f.addEventListener(
+        'click',
+        e => {
+          e.preventDefault()
+          updateTodosPanel(filter.newest)
+        })
+    }
+    else if(f.dataset.filtro === 'antigo') {
+      f.addEventListener(
+      'click',
+      e => {
+        e.preventDefault() 
+        updateTodosPanel(filter.oldest)
+      })
+    }
+    // else if(f.dataset.filtro === 'tag') {
+    //   f.addEventListener('click',
+    //   updateTodosPanel(filter.tag), false)
+    // }
+  })
 
   form.addEventListener('submit', event => {
     event.preventDefault()
 
     let xhr = new XMLHttpRequest(),
       description = document.querySelector('[name=description]'),
-      tags = document.querySelector('[name=tags]')
-
-    let task = {
-      description: description.value,
-      tags: tags.value
-    }
+      tags = document.querySelector('[name=tags]'),
+      task = {
+        description: description.value,
+        tags: tags.value
+      }
 
     xhr.open('POST', url, true)
     xhr.setRequestHeader('Content-Type', 'application/json')
-    xhr.onload = () => console.log(xhr.response)
+    xhr.onload = () => updateTodosPanel()
     xhr.send(JSON.stringify(task))
 
     description.value = ''
@@ -57,7 +100,6 @@ function searchTerm(context, searchString) {
 function updateTodosPanel(delegate, ...params) {
   const todosPanel = document.querySelector('.painel-tarefas'),
     url = '/todos'
-
   let xhr = new XMLHttpRequest()
 
   todosPanel.innerHTML = ""
@@ -72,10 +114,8 @@ function updateTodosPanel(delegate, ...params) {
     if(response.length === 0 )
       todosPanel.append('Nenhum registro encontrado')
     else {
-      response.forEach(reference => {
-        todo = createTodo()
-        populateTodo(todo, reference)
-  
+      response.forEach((reference) => {
+        todo = createTodo(reference)
         todosPanel.append(todo)
       })
     }
@@ -84,7 +124,18 @@ function updateTodosPanel(delegate, ...params) {
   xhr.send(null)
 }
 
-function createTodo() {
+function deleteTodo(id) {
+  let xhr = new XMLHttpRequest(),
+      url = '/todos',
+      json = {id: id}
+  
+  xhr.open('DELETE', url, true)
+  xhr.setRequestHeader('Content-Type', 'application/json')
+  xhr.onload = () => alert('test01')
+  xhr.send(JSON.stringify(json))
+}
+
+function createTodo(reference) {
   let todo = document.createElement('div')
   todo.classList.add('tarefa', 'arredondar')
 
@@ -96,14 +147,14 @@ function createTodo() {
 
     <div class="tarefa-opcoes">
       <div class="deletar opcoes">
-        <i class="bi-x-lg"></i>
+        <i onclick="deleteTodo('${reference._id}')" class="bi-x-lg"></i>
       </div>
       <div class="editar opcoes">
-        <i class="bi-pencil"></i>
+        <i onclick="editTodo('${reference._id}')" class="bi-pencil"></i>
       </div>
     </div>
-  `
-
+    `
+  populateTodo(todo, reference)
   return todo
 }
 
@@ -132,7 +183,7 @@ function populateTodo(todo, todoRef) {
     else if (role === 'data') {
       let date = new Date(todoRef.createdAt),
         day = date.getDate(),
-        month = date.getMonth(),
+        month = date.getMonth() + 1,
         year = date.getFullYear()
 
       data.innerHTML = (day + ' / ' + month + ' / ' + year);

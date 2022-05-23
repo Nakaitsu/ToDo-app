@@ -16,45 +16,51 @@ mongoose.connect('mongodb://localhost/todoapp',
     console.log('Conexão com mongoDB local estabelecida')
 })
 
-app.post('/todos', async (req, res) => {
-  console.log('-----------------')
-  console.log('objeto recebido')
-  console.log(req.body)
-  console.log('-----------------')
-  
-  let description = req.body.description,
-      tags = req.body.tags.split(',')
+app.route('/todos')
+  .post(async (req, res) => {
+    console.log('-----------------')
+    console.log('objeto recebido')
+    console.log(req.body)
+    
+    let description = req.body.description,
+        tags = req.body.tags.split(',')
 
-  let task = new Todo({
-    description: description,
-    tags: tags
+    let task = new Todo({
+      description: description,
+      tags: tags
+    })
+
+    await task.save((err, result) => {
+      if(err)
+        res.send(err)
+      else {
+        res.json({message: 'tarefa arquivada'})
+        console.log('-----------------')
+        console.log(result)
+      }
+    })
+
   })
-
-  await task.save((err, result) => {
-    if(err)
-      res.send(err)
-    else {
-      res.json({message: 'tarefa arquivada'})
-      console.log('-----------------')
-      console.log(result)
-      console.log('-----------------')
-    }
+  .get((req, res) => {  
+    Todo.find(
+      {},
+      {__v:0},
+      (err, result) => {
+        if(!err)
+          res.json(result)
+        else
+          res.json(err)
+      }
+    )
   })
-
-})
-
-app.get('/todos', (req, res) => {  
-  Todo.find(
-    {},
-    {_id:0,__v:0},
-    (err, result) => {
-      if(!err)
-        res.json(result)
-      else
-        res.json(err)
-    }
-  )
-})
+  .put((req,res) => {
+    // Todo.replaceOne({})
+  })
+  .delete((req,res) => {
+    console.log('-----------------')
+    console.log('objeto recebido (delete)')
+    console.log(req.body)
+  })
 
 http.createServer(app).listen(port)
 console.log(`Servidor rodando na porta: ${port}`)
