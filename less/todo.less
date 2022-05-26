@@ -28,6 +28,92 @@
   justify-content: space-around;
 }
 
+.painel-criacao {
+  display: flex;
+  flex-direction: column;
+  justify-content: space-around;
+  align-items: center;
+  min-width: 100%;
+  height: 520px;
+  
+  align-self: flex-start;
+  grid-row: 2/3;
+  grid-column: 1/2;
+  
+  form {
+    width: 100%;
+    padding: 1.5em;
+
+    background: linear-gradient(to bottom, #1B4C9A 1%, #164185 30% , #07295E 76% );
+  }
+
+  label {
+    display: inline-block;
+    font-size: 1.45rem;
+    color: white;
+    font-weight: bold;
+  }
+
+  input, textarea {
+    .form-controller;
+    background-color: @azul-primario;
+    color: white;
+  }
+
+  textarea {
+    &::-webkit-resizer {
+      display: none;
+    }
+  }
+}
+
+.painel-editar {
+  display: flex;
+  flex-direction: column;
+  justify-content: space-around;
+  align-items: center;
+  width: 470px;
+  //height: 520px;
+  position: absolute;
+  bottom: 0;
+  right: 10%;
+  z-index: 2;
+
+  form {
+    width: 100%;
+    padding: 1.5em;
+
+    background: linear-gradient(to bottom, #1B4C9A 1%, #164185 30% , #07295E 76% );
+  }
+
+  label {
+    display: inline-block;
+    font-size: 1.45rem;
+    color: white;
+    font-weight: bold;
+  }
+
+  input, textarea {
+    .form-controller;
+    background-color: @azul-primario;
+    color: white;
+  }
+
+  textarea {
+    &::-webkit-resizer {
+      display: none;
+    }
+  }
+}
+
+.editar-hide {
+  display: none;
+}
+
+.editar-show {
+  display: block;
+}
+
 .painel-tarefas {
   display: flex;
   flex-direction: column;
@@ -140,45 +226,6 @@
       border-color: @azul-primario;
       background-color: white;
       color: @azul-primario;
-    }
-  }
-}
-
-.painel-criacao {
-  display: flex;
-  flex-direction: column;
-  justify-content: space-around;
-  align-items: center;
-  min-width: 100%;
-  height: 520px;
-  
-  align-self: flex-start;
-  grid-row: 2/3;
-  grid-column: 1/2;
-  
-  form {
-    width: 100%;
-    padding: 1.5em;
-
-    background: linear-gradient(to bottom, #1B4C9A 1%, #164185 30% , #07295E 76% );
-  }
-
-  label {
-    display: inline-block;
-    font-size: 1.45rem;
-    color: white;
-    font-weight: bold;
-  }
-
-  input, textarea {
-    .form-controller;
-    background-color: @azul-primario;
-    color: white;
-  }
-
-  textarea {
-    &::-webkit-resizer {
-      display: none;
     }
   }
 }

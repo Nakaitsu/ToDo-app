@@ -1,9 +1,15 @@
+const mainPanel = {
+  title: document.querySelector('[data-title]'),
+  form: document.querySelector('[name=AddTodoForm]'),
+  description: document.getElementById('description'),
+  tags: document.getElementById('tags'),
+  button: document.querySelector('[data-main-button]')
+}
+
 function main() {
   'use strict'
 
-  const form = document.querySelector('[name=ToDoForms]'),
-        filters = document.querySelectorAll('[data-filtro]')
-
+  const filters = document.querySelectorAll('[data-filtro]')
   let url = '/todos',
       search = {
         input: document.querySelector('[data-search-input]'),
@@ -52,24 +58,32 @@ function main() {
     // }
   })
 
-  form.addEventListener('submit', event => {
+  mainPanel.button.addEventListener('click', function(event) {
     event.preventDefault()
 
     let xhr = new XMLHttpRequest(),
-      description = document.querySelector('[name=description]'),
-      tags = document.querySelector('[name=tags]'),
-      task = {
-        description: description.value,
-        tags: tags.value
+      content = {
+        id: null,
+        description: mainPanel.description.value,
+        tags: mainPanel.tags.value
       }
+    
+    if(this.dataset.editMode === 'false') {
+      xhr.open('POST', url, true)
+      alert('POST')
+    }
+    else if(this.dataset.editMode === 'true'){
+      alert('PUT')
+      xhr.open('PUT', url, true)
+      content.id = sessionStorage.getItem('id')
+    }
 
-    xhr.open('POST', url, true)
     xhr.setRequestHeader('Content-Type', 'application/json')
     xhr.onload = () => updateTodosPanel()
-    xhr.send(JSON.stringify(task))
+    xhr.send(JSON.stringify(content))
 
-    description.value = ''
-    tags.value = ''
+    mainPanel.description.value = ''
+    mainPanel.tags.value = ''
   }, false)
 
   search['button'].addEventListener('click', event => {
@@ -114,8 +128,9 @@ function updateTodosPanel(delegate, ...params) {
     if(response.length === 0 )
       todosPanel.append('Nenhum registro encontrado')
     else {
-      response.forEach((reference) => {
+      response.forEach(reference => {
         todo = createTodo(reference)
+
         todosPanel.append(todo)
       })
     }
@@ -131,8 +146,28 @@ function deleteTodo(id) {
   
   xhr.open('DELETE', url, true)
   xhr.setRequestHeader('Content-Type', 'application/json')
-  xhr.onload = () => alert('test01')
+  xhr.onload = () => console.log(xhr.response)
   xhr.send(JSON.stringify(json))
+
+  updateTodosPanel()
+}
+
+function editTodo(id, todoElement) {
+  let todo = {
+    description: todoElement.children[0].textContent,
+    tags: Array.from(todoElement.children[1].childNodes)
+        .map(elem => elem.textContent )
+        .toString()
+  }
+
+  mainPanel.description.value = todo.description
+  mainPanel.tags.value = todo.tags
+  mainPanel.title.textContent = 'Editar tarefa'
+  mainPanel.button.textContent = 'Salvar'
+  mainPanel.button.style['background-color'] = 'green'
+  mainPanel.button.dataset['editMode'] = true
+
+  sessionStorage.setItem('id', id)
 }
 
 function createTodo(reference) {
@@ -149,12 +184,19 @@ function createTodo(reference) {
       <div class="deletar opcoes">
         <i onclick="deleteTodo('${reference._id}')" class="bi-x-lg"></i>
       </div>
-      <div class="editar opcoes">
-        <i onclick="editTodo('${reference._id}')" class="bi-pencil"></i>
+      <div class="editar opcoes" data-editar>
+        <i class="bi-pencil" data-editar></i>
       </div>
     </div>
     `
+
   populateTodo(todo, reference)
+
+  todo.addEventListener('click', event => {
+    if(event.target.dataset.hasOwnProperty('editar'))
+      editTodo(reference._id, todo)
+  })
+
   return todo
 }
 
@@ -164,10 +206,10 @@ function populateTodo(todo, todoRef) {
   todo.forEach(data => {
     let role = data.dataset['tarefaItem']
 
-    if (role === 'descricao') {
+    if(role === 'descricao') {
       data.innerHTML = todoRef.description
     }
-    else if (role === 'tags') {
+    else if(role === 'tags') {
       tags = todoRef.tags
         .toString()
         .split(',')
@@ -180,7 +222,7 @@ function populateTodo(todo, todoRef) {
         data.append(tag)
       })
     }
-    else if (role === 'data') {
+    else if(role === 'data') {
       let date = new Date(todoRef.createdAt),
         day = date.getDate(),
         month = date.getMonth() + 1,

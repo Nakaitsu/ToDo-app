@@ -29,23 +29,22 @@
   
   <main>
     <div class="container conteudo">      
-      <h3>Adicionar nova tarefa</h3>
+      <h3 data-title>Adicionar nova tarefa</h3>
 
       <div class="painel-criacao arredondar">
-        <form name="ToDoForms" method="POST" action="todos" class="arredondar">
+        <form name="AddTodoForm" method="POST" action="todos" class="arredondar">
           <fieldset class="mb-2">
             <label class="mb" for="descricao">Descrição:</label>
-            <textarea class="arredondar" name="description" id="description" cols="auto" rows="7" autocomplete="off" placeholder="Hoje eu preciso compartilhar esse site de oragnizar tarefas" required></textarea>
+            <textarea class="arredondar" id="description" name="description" id="description" cols="auto" rows="7" autocomplete="off" placeholder="Hoje eu preciso compartilhar esse site de oragnizar tarefas" required></textarea>
           </fieldset>
+
           <fieldset class="mb-2">
             <label class="mb" for="tags">Tags:</label>
-            <input value="teste" class="arredondar" name="tags" type="text" autocomplete="off" placeholder="Importante, Legal" required>
+            <input value="teste" id="tags" class="arredondar" name="tags" type="text" autocomplete="off" placeholder="Importante, Legal" required>
           </fieldset>
-
-          <input type="submit" class="btn btn-azul arredondar">
         </form>
 
-        <!-- <a class="btn btn-azul arredondar">Adicionar</a> -->
+        <a class="btn btn-azul arredondar" data-main-button data-edit-mode="false">Adicionar</a>
       </div>
 
       <div class="painel-controles">

@@ -21,6 +21,88 @@
   align-items: center;
   justify-content: space-around;
 }
+.painel-criacao {
+  display: flex;
+  flex-direction: column;
+  justify-content: space-around;
+  align-items: center;
+  min-width: 100%;
+  height: 520px;
+  align-self: flex-start;
+  grid-row: 2/3;
+  grid-column: 1/2;
+}
+.painel-criacao form {
+  width: 100%;
+  padding: 1.5em;
+  background: linear-gradient(to bottom, #1B4C9A 1%, #164185 30%, #07295E 76%);
+}
+.painel-criacao label {
+  display: inline-block;
+  font-size: 1.45rem;
+  color: white;
+  font-weight: bold;
+}
+.painel-criacao input,
+.painel-criacao textarea {
+  display: block;
+  min-width: 100%;
+  padding: 1em;
+  border: none;
+  background-color: #3961A0;
+  color: white;
+}
+.painel-criacao input:focus,
+.painel-criacao textarea:focus {
+  outline: none;
+}
+.painel-criacao textarea::-webkit-resizer {
+  display: none;
+}
+.painel-editar {
+  display: flex;
+  flex-direction: column;
+  justify-content: space-around;
+  align-items: center;
+  width: 470px;
+  position: absolute;
+  bottom: 0;
+  right: 10%;
+  z-index: 2;
+}
+.painel-editar form {
+  width: 100%;
+  padding: 1.5em;
+  background: linear-gradient(to bottom, #1B4C9A 1%, #164185 30%, #07295E 76%);
+}
+.painel-editar label {
+  display: inline-block;
+  font-size: 1.45rem;
+  color: white;
+  font-weight: bold;
+}
+.painel-editar input,
+.painel-editar textarea {
+  display: block;
+  min-width: 100%;
+  padding: 1em;
+  border: none;
+  background-color: #3961A0;
+  color: white;
+}
+.painel-editar input:focus,
+.painel-editar textarea:focus {
+  outline: none;
+}
+.painel-editar textarea::-webkit-resizer {
+  display: none;
+}
+.editar-hide {
+  display: none;
+}
+.editar-show {
+  display: block;
+}
 .painel-tarefas {
   display: flex;
   flex-direction: column;
@@ -112,44 +194,6 @@
   border-color: #3961A0;
   background-color: white;
   color: #3961A0;
-}
-.painel-criacao {
-  display: flex;
-  flex-direction: column;
-  justify-content: space-around;
-  align-items: center;
-  min-width: 100%;
-  height: 520px;
-  align-self: flex-start;
-  grid-row: 2/3;
-  grid-column: 1/2;
-}
-.painel-criacao form {
-  width: 100%;
-  padding: 1.5em;
-  background: linear-gradient(to bottom, #1B4C9A 1%, #164185 30%, #07295E 76%);
-}
-.painel-criacao label {
-  display: inline-block;
-  font-size: 1.45rem;
-  color: white;
-  font-weight: bold;
-}
-.painel-criacao input,
-.painel-criacao textarea {
-  display: block;
-  min-width: 100%;
-  padding: 1em;
-  border: none;
-  background-color: #3961A0;
-  color: white;
-}
-.painel-criacao input:focus,
-.painel-criacao textarea:focus {
-  outline: none;
-}
-.painel-criacao textarea::-webkit-resizer {
-  display: none;
 }
 .controles-buscar {
   display: flex;
