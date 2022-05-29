@@ -2,9 +2,9 @@
 
 .conteudo {
   display: grid;
-  grid-template-columns: 0.7fr 1fr;
+  grid-template-columns: 1fr 1fr;
   grid-column-gap: 7vw;
-  grid-row-gap: 2em;
+  grid-row-gap: 1.35em;
   justify-content: center;
 
   padding: 2em 0;
@@ -25,7 +25,9 @@
 .painel-controles {
   display: flex;
   align-items: center;
-  justify-content: space-around;
+  flex-wrap: wrap;
+  justify-content: space-between;
+  row-gap: .75em; //temp
 }
 
 .painel-criacao {
@@ -33,15 +35,14 @@
   flex-direction: column;
   justify-content: space-around;
   align-items: center;
-  min-width: 100%;
-  height: 520px;
+  height: 420px;
   
   align-self: flex-start;
   grid-row: 2/3;
   grid-column: 1/2;
   
   form {
-    width: 100%;
+    width: 90%;
     padding: 1.5em;
 
     background: linear-gradient(to bottom, #1B4C9A 1%, #164185 30% , #07295E 76% );
@@ -49,7 +50,7 @@
 
   label {
     display: inline-block;
-    font-size: 1.45rem;
+    font-size: 1.2rem;
     color: white;
     font-weight: bold;
   }
@@ -65,61 +66,27 @@
       display: none;
     }
   }
-}
 
-.painel-editar {
-  display: flex;
-  flex-direction: column;
-  justify-content: space-around;
-  align-items: center;
-  width: 470px;
-  //height: 520px;
-  position: absolute;
-  bottom: 0;
-  right: 10%;
-  z-index: 2;
-
-  form {
-    width: 100%;
-    padding: 1.5em;
-
-    background: linear-gradient(to bottom, #1B4C9A 1%, #164185 30% , #07295E 76% );
-  }
-
-  label {
-    display: inline-block;
-    font-size: 1.45rem;
-    color: white;
-    font-weight: bold;
-  }
-
-  input, textarea {
-    .form-controller;
-    background-color: @azul-primario;
-    color: white;
-  }
-
-  textarea {
-    &::-webkit-resizer {
-      display: none;
+  .editMode {
+    .button.dinamico(@verde-primario);
+    &::after {
+      content: 'Salvar';
     }
   }
-}
 
-.editar-hide {
-  display: none;
-}
-
-.editar-show {
-  display: block;
+  .addMode {
+    &::after {
+      content: "Adicionar";
+    }
+  }
 }
 
 .painel-tarefas {
   display: flex;
   flex-direction: column;
-  row-gap: .5em;
+  row-gap: .85em;
 
-  padding: 1.3em;
+  padding: .55em;
   min-height: 100%;
   max-height: 420px;
   overflow: auto;
@@ -131,8 +98,9 @@
 
   .tarefa {
     display: grid;
-    grid-template-columns: 1fr .3fr;
+    grid-template-columns: 1fr .375fr;
     grid-row-gap: 1.2em;
+    grid-column-gap: .25em;
     padding: 1.3em;
 
     background-color: #2C9A87;
@@ -144,6 +112,18 @@
       transform: scale(1.015);
     }
   }
+
+  //feature
+  .editing {
+    transition: box-shadow 25ms ease-in;
+    box-shadow: 0 0 3px 3px #f7e11e, 0 0 6px 1px @verde-primario, 0 0 10px 2px @verde-vivo;
+    transform: scale(1.015);
+
+    &:hover {
+      box-shadow: 0 0 3px 3px #f7e11e, 0 0 6px 1px @verde-primario, 0 0 10px 2px @verde-vivo;
+      transform: scale(1.015);  
+    }
+  }
 }
 
 .tarefa {
@@ -151,7 +131,7 @@
     align-self: start;
     grid-column: 1/2;
     
-    max-width: 100%;
+    word-break: break-all;
     text-align: justify;
   }
 
@@ -166,13 +146,15 @@
     column-gap: 0.5em;
     row-gap: 0.25em;
     flex-flow: row wrap;
-    max-width: 100%;
-
-    color: @cinza-escuro;
+    width: 100%;
 
     p {
-      background-color: #7BDC62;
       padding: .25em 1.125em;
+
+      color: @cinza-escuro;
+      background-color: #7BDC62;
+      font-size: .75rem;
+      font-weight: 700;
     }
   }
 
@@ -181,9 +163,9 @@
     justify-self: end;
     grid-column: 2/3;
 
-    font-size: 1rem;
+    font-size: .75rem;
     font-style: italic;
-    word-spacing: .55em;
+    word-spacing: .25em;
   }
 
   .tarefa-opcoes {
@@ -196,7 +178,7 @@
     column-gap: .25em;
 
     .opcoes {
-      font-size: 1.3rem;
+      // font-size: 1.3rem;
       padding: .25em .5em;
       color: white;
       cursor: pointer;
@@ -233,16 +215,21 @@
 .controles-buscar {
   display: flex;
   align-items: center;
-  width: 63%;
   padding: .3em .75em;
   
   grid-row: 1/2;
 
   .borda-smooth;
 
+  .busca-botao {
+    flex: 1 1 0;
+  }
+
+  .busca-area {
+    flex: 2 1 0;
+  }
+
   input {
-    flex-grow: 2;
-    padding: 0 .3em;
     border: none;
     color: @cinza-escuro;
 
@@ -272,9 +259,10 @@
   .filtro-menu {
     display: none;
     position: absolute;
-    padding: 1em;
+    padding: .75em .55em;
+    left: 0;
     top: 105%;
-    min-width: 100%;
+    width: max(135px, 120%);
     
     color: @cinza-escuro;
     background-color: white;

@@ -58,29 +58,33 @@ function main() {
     // }
   })
 
-  mainPanel.button.addEventListener('click', function(event) {
+  mainPanel.button.addEventListener('click', async function(event) {
     event.preventDefault()
 
-    let xhr = new XMLHttpRequest(),
-      content = {
-        id: null,
-        description: mainPanel.description.value,
-        tags: mainPanel.tags.value
+    let content = {
+        id: undefined,
+        description: mainPanel.description.value 
+          ? mainPanel.description.value 
+          : undefined,
+        tags: mainPanel.tags.value 
+          ? mainPanel.tags.value.split(',') 
+          :  undefined
       }
-    
+
     if(this.dataset.editMode === 'false') {
-      xhr.open('POST', url, true)
-      alert('POST')
+      await makeRequest('POST', url, content)
     }
     else if(this.dataset.editMode === 'true'){
-      alert('PUT')
-      xhr.open('PUT', url, true)
-      content.id = sessionStorage.getItem('id')
+      content.id = sessionStorage.getItem('editing')
+      await makeRequest('PUT', url, content)
+
+      mainPanel.title.textContent = "Adicionar nova tarefa"
+      mainPanel.button.classList.remove('editMode')
+      mainPanel.button.classList.add('addMode')
+      mainPanel.button.dataset['editMode'] = 'false'
     }
 
-    xhr.setRequestHeader('Content-Type', 'application/json')
-    xhr.onload = () => updateTodosPanel()
-    xhr.send(JSON.stringify(content))
+    updateTodosPanel()
 
     mainPanel.description.value = ''
     mainPanel.tags.value = ''
@@ -98,6 +102,37 @@ function main() {
   updateTodosPanel()
 }
 
+function makeRequest(method, url, content = null) {
+  return new Promise(function(resolve, reject) {
+    let xhr = new XMLHttpRequest()
+    xhr.open(method, url)
+    xhr.setRequestHeader('Content-Type', 'application/json')
+    xhr.onload = function() {
+      if(this.status >= 200 && this.status < 300) {
+        resolve(JSON.parse(xhr.response))
+      }
+      else {
+        reject({
+          status: this.status,
+          statusText: xhr.statusText
+        })
+      }
+    }
+    xhr.onerror = function() {
+      reject({
+        status: this.status,
+        statusText: xhr.statusText
+      })
+    }
+    
+    if(content != null){
+      xhr.send(JSON.stringify(content))
+    }
+    else 
+      xhr.send()
+  })
+}
+
 function searchTerm(context, searchString) {
   let result = []
   searchString = searchString.toString()
@@ -111,43 +146,32 @@ function searchTerm(context, searchString) {
   return result
 }
 
-function updateTodosPanel(delegate, ...params) {
+async function updateTodosPanel(delegate, ...params) {
   const todosPanel = document.querySelector('.painel-tarefas'),
     url = '/todos'
-  let xhr = new XMLHttpRequest()
+  let result = await makeRequest('GET', url)
+  
+  if(delegate)
+    result = delegate(result, params)
 
   todosPanel.innerHTML = ""
 
-  xhr.open('GET', url, true)
-  xhr.onload = function () {
-    let response = JSON.parse(xhr.response)
+  if(result.length === 0 )
+    todosPanel.append('Nenhum registro encontrado')
+  else {
+    result.forEach(reference => {
+      todo = createTodo(reference)
 
-    if(delegate)
-      response = delegate(response, params)
-
-    if(response.length === 0 )
-      todosPanel.append('Nenhum registro encontrado')
-    else {
-      response.forEach(reference => {
-        todo = createTodo(reference)
-
-        todosPanel.append(todo)
-      })
-    }
-
+      todosPanel.append(todo) 
+    })
   }
-  xhr.send(null)
 }
 
-function deleteTodo(id) {
-  let xhr = new XMLHttpRequest(),
-      url = '/todos',
-      json = {id: id}
+async function deleteTodo(id) {
+  let url = '/todos',
+    todoID = {id: id}
   
-  xhr.open('DELETE', url, true)
-  xhr.setRequestHeader('Content-Type', 'application/json')
-  xhr.onload = () => console.log(xhr.response)
-  xhr.send(JSON.stringify(json))
+  await makeRequest('DELETE', url, todoID)
 
   updateTodosPanel()
 }
@@ -160,19 +184,21 @@ function editTodo(id, todoElement) {
         .toString()
   }
 
+  sessionStorage.setItem('editing', id)
+
   mainPanel.description.value = todo.description
   mainPanel.tags.value = todo.tags
   mainPanel.title.textContent = 'Editar tarefa'
-  mainPanel.button.textContent = 'Salvar'
-  mainPanel.button.style['background-color'] = 'green'
+  mainPanel.button.classList.remove('addMode')
+  mainPanel.button.classList.add('editMode')
   mainPanel.button.dataset['editMode'] = true
-
-  sessionStorage.setItem('id', id)
 }
 
 function createTodo(reference) {
   let todo = document.createElement('div')
   todo.classList.add('tarefa', 'arredondar')
+  todo.dataset.id = reference._id
+  todo.dataset.tarefa = null
 
   todo.innerHTML =
     `
@@ -181,8 +207,8 @@ function createTodo(reference) {
     <p class="data" data-tarefa-item="data"></p>
 
     <div class="tarefa-opcoes">
-      <div class="deletar opcoes">
-        <i onclick="deleteTodo('${reference._id}')" class="bi-x-lg"></i>
+      <div class="deletar opcoes" data-deletar>
+        <i class="bi-x-lg" data-deletar></i>
       </div>
       <div class="editar opcoes" data-editar>
         <i class="bi-pencil" data-editar></i>
@@ -193,8 +219,18 @@ function createTodo(reference) {
   populateTodo(todo, reference)
 
   todo.addEventListener('click', event => {
-    if(event.target.dataset.hasOwnProperty('editar'))
+    if(event.target.dataset.hasOwnProperty('editar')) {
+      document.querySelectorAll('.tarefa')
+        .forEach(todo => todo.classList.remove('editing'))
+
+      todo.classList.add('editing')
+
+      
       editTodo(reference._id, todo)
+    }
+    else if(event.target.dataset.hasOwnProperty('deletar')) {
+      deleteTodo(reference._id)
+    }
   })
 
   return todo

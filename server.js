@@ -18,27 +18,30 @@ mongoose.connect('mongodb://localhost/todoapp',
 
 app.route('/todos')
   .post(async (req, res) => {
-    console.log('-----------------')
-    console.log('objeto recebido')
+    console.log('-------POST--------')
     console.log(req.body)
-    
-    let description = req.body.description,
-        tags = req.body.tags.split(','),
-        task = new Todo({
-          description: description,
-          tags: tags
-        })
 
-    await task.save((err, result) => {
-      if(err)
-        res.json(err)
-      else {
-        res.json({message: 'tarefa arquivada'})
-        console.log('-----------------')
-        console.log(result)
-      }
+    let task = new Todo({
+      description: req.body.description,
+      tags: req.body.tags
     })
 
+    let error = task.validateSync()
+
+    if(error != undefined) {
+      res.json({error: 'validation error'})
+      console.log('erro de validação')
+    }
+    else {
+      await task.save((err, result) => {
+        if(err){
+          res.json({error : err})
+          console.log('erro salvando')
+        }
+        else
+          res.json({message: 'Nova Tarefa arquivada'})
+      })
+    }
   })
   .get((req, res) => {  
     Todo.find(
@@ -51,57 +54,25 @@ app.route('/todos')
           res.json(err)
       }
     )
-
-    console.log('Uma solicitação get')
   })
-  .put((req,res) => {
-    Todo.find(
-      {id: req.body.id},
+  .put(async (req,res) => {
+    Todo.updateOne(
+      {_id: req.body.id},
+      {description: req.body.description, tags: req.body.tags},
       (err, result) => {
-        if(err)
-          res.json(err)
-        else {
-          let oldTodo = result
-          console.log(result) //debug
-          
-          Todo.replaceOne(
-            {id: req.body.id},
-            {
-              description: req.body.description,
-              tags: req.body.tags.split(',')
-            },
-            (err, result) => {
-              console.log(result) //debug
-
-              res.json({
-                message: 'Item modificado com sucesso',
-                oldest: {
-                  description: oldTodo.description,
-                  tags: oldTodo.tags
-                },
-                newest: {
-                  description: result.description,
-                  tags: result.tags,
-                }
-              })
-            }
-          )
-        }
-      })
-
-    console.log('uma solicitação put')
+        res.json({message: 'Tarefa editada com sucesso'})
+      }
+    )
   })
   .delete((req,res) => {
-    Todo.deleteOne(
-      {id: req.body.id},
+    Todo.remove(
+      {_id: req.body.id},
       (err, result) => {
         if(err)
           res.json(err)
         else
           res.json({message: 'Item excluido com sucesso'})
       })
-
-    console.log('Uma solicitação de delete')
   })
 
 http.createServer(app).listen(port)

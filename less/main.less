@@ -2,11 +2,15 @@
 @import url('https://fonts.googleapis.com/css2?family=Fira+Sans:wght@400;700&family=Ubuntu:wght@400;700&display=swap');
 
 //formatação
+:root {
+  font-size: 16px;
+}
+
 * {
   margin: 0;
   padding: 0;
   box-sizing: border-box;
-  font-size: 1.125rem;
+  font-size: 1rem;
 
   &::placeholder {
     font-style: italic;
@@ -31,22 +35,22 @@ a {
 }
 
 h1 {
-  font-size: 2.55rem;
+  font-size: 1.95rem;
 }
 h2 {
-  font-size: 2.4rem;
+  font-size: 1.725rem;
 }
 h3 {
-  font-size: 2.1rem;
-}
-h4 {
-  font-size: 1.7rem;
-}
-h5 {
   font-size: 1.55rem;
 }
+h4 {
+  font-size: 1.45rem;
+}
+h5 {
+  font-size: 1.4rem;
+}
 h6 {
-  font-size: 1.5rem;
+  font-size: 1.375rem;
 }
 
 h1,h2,h3,h4,h5,h6{
@@ -62,8 +66,8 @@ h1,h2,h3,h4,h5,h6{
   margin-bottom: 1em;
 }
 
-.ms-1 {
-  margin-left: 1em;
+.ms {
+  margin-inline-start: .5em;
 }
 
 .me-1 {
@@ -88,6 +92,7 @@ h1,h2,h3,h4,h5,h6{
 
 .container {
   width: 90%;
+  max-width: 1024px;
   margin: 0 auto;
 }
 
@@ -105,19 +110,14 @@ h1,h2,h3,h4,h5,h6{
   color: white;
 }
 
-.triangle {
-  display: inline-block;
-
-  border-left: 1em solid transparent;
-  border-right: 1em solid transparent;
-  border-top: 1em solid white;
-  border-radius: 4px;
+.reverse{
+  transform: rotate(180deg);
 }
 
 //conteudo
 header {
   width: 100%;
-  padding: 1.5em 0;
+  padding: .75em 0;
   
   background: linear-gradient(to bottom, rgba(6,104,84,1) 1%,rgba(6,115,97,1) 30%,rgba(13,147,125,1) 76%);
 
@@ -127,7 +127,7 @@ header {
     justify-content: space-between;
 
     nav {
-      width: 25%;
+      width: 30%;
     }
 
     h1 {
@@ -142,7 +142,7 @@ header {
   }
 
   .nav-link {
-    padding: .75em 1em;
+    padding: .25em .75em;
     transition: background .75ms ease-in-out;
     .transition-color;
 

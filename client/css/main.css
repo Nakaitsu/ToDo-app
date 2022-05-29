@@ -27,11 +27,14 @@
   font-display: swap;
   src: url(https://fonts.gstatic.com/s/ubuntu/v20/4iCv6KVjbNBYlgoCxCvTtw.ttf) format('truetype');
 }
+:root {
+  font-size: 16px;
+}
 * {
   margin: 0;
   padding: 0;
   box-sizing: border-box;
-  font-size: 1.125rem;
+  font-size: 1rem;
 }
 *::placeholder {
   font-style: italic;
@@ -51,22 +54,22 @@ a {
   text-decoration: none;
 }
 h1 {
-  font-size: 2.55rem;
+  font-size: 1.95rem;
 }
 h2 {
-  font-size: 2.4rem;
+  font-size: 1.725rem;
 }
 h3 {
-  font-size: 2.1rem;
-}
-h4 {
-  font-size: 1.7rem;
-}
-h5 {
   font-size: 1.55rem;
 }
+h4 {
+  font-size: 1.45rem;
+}
+h5 {
+  font-size: 1.4rem;
+}
 h6 {
-  font-size: 1.5rem;
+  font-size: 1.375rem;
 }
 h1,
 h2,
@@ -82,8 +85,8 @@ h6 {
 .mb-1 {
   margin-bottom: 1em;
 }
-.ms-1 {
-  margin-left: 1em;
+.ms {
+  margin-inline-start: 0.5em;
 }
 .me-1 {
   margin-right: 1em;
@@ -102,6 +105,7 @@ h6 {
 }
 .container {
   width: 90%;
+  max-width: 1024px;
   margin: 0 auto;
 }
 .nav-link {
@@ -110,7 +114,7 @@ h6 {
 .btn {
   display: inline-block;
   cursor: pointer;
-  font-size: 1.35rem;
+  font-size: 1.1rem;
   font-weight: bolder;
   padding: 0.5em 1.2em;
 }
@@ -125,16 +129,12 @@ h6 {
 .btn-azul:active {
   transform: translateY(2.5px);
 }
-.triangle {
-  display: inline-block;
-  border-left: 1em solid transparent;
-  border-right: 1em solid transparent;
-  border-top: 1em solid white;
-  border-radius: 4px;
+.reverse {
+  transform: rotate(180deg);
 }
 header {
   width: 100%;
-  padding: 1.5em 0;
+  padding: 0.75em 0;
   background: linear-gradient(to bottom, #066854 1%, #067361 30%, #0d937d 76%);
 }
 header .header-config {
@@ -143,7 +143,7 @@ header .header-config {
   justify-content: space-between;
 }
 header .header-config nav {
-  width: 25%;
+  width: 30%;
 }
 header .header-config h1 {
   color: white;
@@ -154,9 +154,9 @@ header .header-config ul {
   justify-content: space-evenly;
 }
 header .nav-link {
-  padding: 0.75em 1em;
+  padding: 0.25em 0.75em;
   transition: background 0.75ms ease-in-out;
-  trasition: color 0.75ms ease-out;
+  transition: color 0.75ms ease-out;
 }
 header .nav-link:hover {
   background-color: #7BDC62;
@@ -170,7 +170,7 @@ footer {
   background: linear-gradient(to top, #066854 1%, #067361 30%, #0d937d 76%);
 }
 footer .nav-link {
-  trasition: color 0.75ms ease-out;
+  transition: color 0.75ms ease-out;
 }
 footer .nav-link:hover {
   color: #7BDC62;

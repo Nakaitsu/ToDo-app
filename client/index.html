@@ -33,30 +33,34 @@
 
       <div class="painel-criacao arredondar">
         <form name="AddTodoForm" method="POST" action="todos" class="arredondar">
-          <fieldset class="mb-2">
+          <fieldset class="mb-1">
             <label class="mb" for="descricao">Descrição:</label>
             <textarea class="arredondar" id="description" name="description" id="description" cols="auto" rows="7" autocomplete="off" placeholder="Hoje eu preciso compartilhar esse site de oragnizar tarefas" required></textarea>
           </fieldset>
 
-          <fieldset class="mb-2">
+          <fieldset class="mb-1">
             <label class="mb" for="tags">Tags:</label>
-            <input value="teste" id="tags" class="arredondar" name="tags" type="text" autocomplete="off" placeholder="Importante, Legal" required>
+            <input id="tags" class="arredondar" name="tags" type="text" autocomplete="off" placeholder="Tags, separadas, por, virgulas" required>
           </fieldset>
         </form>
 
-        <a class="btn btn-azul arredondar" data-main-button data-edit-mode="false">Adicionar</a>
+        <a class="btn btn-azul arredondar addMode" data-main-button data-edit-mode="false"></a>
       </div>
 
       <div class="painel-controles">
         <div class="controles-buscar arredondar">
-          <input type="text" placeholder="Buscar uma tarefa" data-search-input>
-          <a class="btn btn-azul arredondar" data-search-btn>Buscar</a>
+          <div class="busca-area">
+            <input type="text" placeholder="Buscar uma tarefa" data-search-input>
+          </div>
+          <div class="ms busca-botao">
+            <a class="btn btn-azul arredondar" data-search-btn>Buscar</a>
+          </div>
         </div>
 
         <div class="controles-filtro-dropdown">
           <div class="btn-dropdown btn btn-azul arredondar">
             <a>Filtrar</a>
-            <i class="triangle"></i>
+            <i class="ms bi-triangle-fill reverse"></i>
           </div>
 
           <div class="filtro-menu">
@@ -75,19 +79,7 @@
         </div>
       </div>
 
-      <div class="painel-tarefas arredondar">
-
-        <!-- <div class="tarefa arredondar">
-          <p class="descricao">Só o básico meus amigos</p>
-          <div class="tags">
-            <p class="arredondar-p">Importante</p>
-            <p class="arredondar-p">Nova tarefa</p>
-          </div>
-          <p class="data">16 / 04 / 2022</p>
-          <a class="deletar arredondar-p">X</a>
-        </div> -->
-
-      </div>
+      <div class="painel-tarefas arredondar"></div>
 
     </div>
   </main>
