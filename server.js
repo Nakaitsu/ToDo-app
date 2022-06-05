@@ -65,7 +65,7 @@ app.route('/todos')
     )
   })
   .delete((req,res) => {
-    Todo.remove(
+    Todo.deleteOne(
       {_id: req.body.id},
       (err, result) => {
         if(err)

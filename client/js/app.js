@@ -11,32 +11,42 @@ function main() {
 
   const filters = document.querySelectorAll('[data-filtro]')
   let url = '/todos',
-      search = {
-        input: document.querySelector('[data-search-input]'),
-        button: document.querySelector('[data-search-btn]')
+    search = {
+      input: document.querySelector('[data-search-input]'),
+      button: document.querySelector('[data-search-btn]')
+    },
+    filter = {
+      newest: (context) => {
+        return context.reverse()
       },
-      filter = {
-        newest: (context) => {
-          let newest = []
-  
-          for(let i = context.length - 1; i >= 0; i--) {
-            newest.push(context[i])
-          }
-          return newest
-        },
-        oldest: (context) => {
-          let oldest = []
-  
-          oldest = context.filter(elem => elem)
-          return oldest
-        },
-        tag: (context) => {
-          //fazer ainda
-        }
+      oldest: (context) => {
+        return context
+      },
+      tag: (context) => {
+        const tags = []
+
+        context.forEach(elem => {
+          elem.tags.forEach(tag => {
+            if(!tags.includes(tag))
+              tags.push(tag)
+          })
+        })
+
+        let groupByTag = tags.map(uniqueTag => {
+          const todoWithTag = []
+
+          context.forEach(elem => {
+            if(elem.tags.includes(uniqueTag))
+              todoWithTag.push(elem)
+          })
+          return {tag: uniqueTag, todos: todoWithTag}
+        })
+        return groupByTag
       }
+    }
 
   filters.forEach(f => {
-    if(f.dataset.filtro === 'recente') {
+    if (f.dataset.filtro === 'recente') {
       f.addEventListener(
         'click',
         e => {
@@ -44,37 +54,41 @@ function main() {
           updateTodosPanel(filter.newest)
         })
     }
-    else if(f.dataset.filtro === 'antigo') {
+    else if (f.dataset.filtro === 'antigo') {
       f.addEventListener(
-      'click',
-      e => {
-        e.preventDefault() 
-        updateTodosPanel(filter.oldest)
-      })
+        'click',
+        e => {
+          e.preventDefault()
+          updateTodosPanel(filter.oldest)
+        })
     }
-    // else if(f.dataset.filtro === 'tag') {
-    //   f.addEventListener('click',
-    //   updateTodosPanel(filter.tag), false)
-    // }
+    else if (f.dataset.filtro === 'tag') {
+      f.addEventListener(
+        'click',
+        e => {
+          e.preventDefault()
+          updateTodosPanel(filter.tag)
+        })
+    }
   })
 
-  mainPanel.button.addEventListener('click', async function(event) {
+  mainPanel.button.addEventListener('click', async function (event) {
     event.preventDefault()
 
     let content = {
-        id: undefined,
-        description: mainPanel.description.value 
-          ? mainPanel.description.value 
-          : undefined,
-        tags: mainPanel.tags.value 
-          ? mainPanel.tags.value.split(',') 
-          :  undefined
-      }
+      id: undefined,
+      description: mainPanel.description.value
+        ? mainPanel.description.value
+        : undefined,
+      tags: mainPanel.tags.value
+        ? mainPanel.tags.value.split(',')
+        : undefined
+    }
 
-    if(this.dataset.editMode === 'false') {
+    if (this.dataset.editMode === 'false') {
       await makeRequest('POST', url, content)
     }
-    else if(this.dataset.editMode === 'true'){
+    else if (this.dataset.editMode === 'true') {
       content.id = sessionStorage.getItem('editing')
       await makeRequest('PUT', url, content)
 
@@ -103,12 +117,12 @@ function main() {
 }
 
 function makeRequest(method, url, content = null) {
-  return new Promise(function(resolve, reject) {
+  return new Promise(function (resolve, reject) {
     let xhr = new XMLHttpRequest()
     xhr.open(method, url)
     xhr.setRequestHeader('Content-Type', 'application/json')
-    xhr.onload = function() {
-      if(this.status >= 200 && this.status < 300) {
+    xhr.onload = function () {
+      if (this.status >= 200 && this.status < 300) {
         resolve(JSON.parse(xhr.response))
       }
       else {
@@ -118,17 +132,17 @@ function makeRequest(method, url, content = null) {
         })
       }
     }
-    xhr.onerror = function() {
+    xhr.onerror = function () {
       reject({
         status: this.status,
         statusText: xhr.statusText
       })
     }
-    
-    if(content != null){
+
+    if (content != null) {
       xhr.send(JSON.stringify(content))
     }
-    else 
+    else
       xhr.send()
   })
 }
@@ -142,7 +156,7 @@ function searchTerm(context, searchString) {
       .toLowerCase()
       .includes(searchString.toLowerCase())
   })
-  
+
   return result
 }
 
@@ -150,27 +164,37 @@ async function updateTodosPanel(delegate, ...params) {
   const todosPanel = document.querySelector('.painel-tarefas'),
     url = '/todos'
   let result = await makeRequest('GET', url)
-  
-  if(delegate)
+
+  if (delegate)
     result = delegate(result, params)
 
   todosPanel.innerHTML = ""
 
-  if(result.length === 0 )
+  if(result.length === 0) {
     todosPanel.append('Nenhum registro encontrado')
+  }
+  else if(result[0].hasOwnProperty('tag')) {
+    result.forEach(group => {
+      todosPanel.append(group.tag)
+      
+      group.todos.forEach(reference => {
+        let todo = createTodo(reference)
+        todosPanel.append(todo)
+      })
+    })
+  }
   else {
     result.forEach(reference => {
       todo = createTodo(reference)
-
-      todosPanel.append(todo) 
+      todosPanel.append(todo)
     })
   }
 }
 
 async function deleteTodo(id) {
   let url = '/todos',
-    todoID = {id: id}
-  
+    todoID = { id: id }
+
   await makeRequest('DELETE', url, todoID)
 
   updateTodosPanel()
@@ -180,8 +204,8 @@ function editTodo(id, todoElement) {
   let todo = {
     description: todoElement.children[0].textContent,
     tags: Array.from(todoElement.children[1].childNodes)
-        .map(elem => elem.textContent )
-        .toString()
+      .map(elem => elem.textContent)
+      .toString()
   }
 
   sessionStorage.setItem('editing', id)
@@ -219,16 +243,16 @@ function createTodo(reference) {
   populateTodo(todo, reference)
 
   todo.addEventListener('click', event => {
-    if(event.target.dataset.hasOwnProperty('editar')) {
+    if (event.target.dataset.hasOwnProperty('editar')) {
       document.querySelectorAll('.tarefa')
         .forEach(todo => todo.classList.remove('editing'))
 
       todo.classList.add('editing')
 
-      
+
       editTodo(reference._id, todo)
     }
-    else if(event.target.dataset.hasOwnProperty('deletar')) {
+    else if (event.target.dataset.hasOwnProperty('deletar')) {
       deleteTodo(reference._id)
     }
   })
@@ -242,10 +266,10 @@ function populateTodo(todo, todoRef) {
   todo.forEach(data => {
     let role = data.dataset['tarefaItem']
 
-    if(role === 'descricao') {
+    if (role === 'descricao') {
       data.innerHTML = todoRef.description
     }
-    else if(role === 'tags') {
+    else if (role === 'tags') {
       tags = todoRef.tags
         .toString()
         .split(',')
@@ -258,7 +282,7 @@ function populateTodo(todo, todoRef) {
         data.append(tag)
       })
     }
-    else if(role === 'data') {
+    else if (role === 'data') {
       let date = new Date(todoRef.createdAt),
         day = date.getDate(),
         month = date.getMonth() + 1,

@@ -1,7 +1,7 @@
 # ToDo-app
 
 Um app para registrar tarefas
-
+  
 O objetivo é praticar:
 
 * ***javascript*** 
@@ -12,6 +12,7 @@ O objetivo é praticar:
 
 * *HTML 5*
 * *CSS 3*
+* *Javascript*
 * *Less*
 * *nodeJs*
 * *mongoDB*
@@ -25,3 +26,7 @@ O objetivo é praticar:
 ![image](https://user-images.githubusercontent.com/73973922/167501358-77cce358-b803-4580-be03-0dc5641a6d15.png)
 
 ![image](https://user-images.githubusercontent.com/73973922/167501377-b57497ba-825b-49b4-a3d0-cc90ebaa09da.png)
+
+---
+
+### Como funciona
